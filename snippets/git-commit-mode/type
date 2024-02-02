@@ -1,0 +1,38 @@
+# -*- mode: snippet -*-
+# name: type
+# key: type
+# --
+${1:$$(yas-auto-next
+  (let* ((commit-types
+          '(("🐛fix" . "A bug fix")
+            ("✨feat" . "A new feature")
+            ("♻refactor" . "Change that neither fixes a bug nor adds a feature")
+            ("📝docs" . "Documentation only changes")
+            ("🌈style" . "Changes that do not affect the meaning of the code (white-space, formatting, etc)")
+            ("✅test" . "Adding missing tests of correcting existing ones")
+            ("⏪revert" . "Commit reverts")
+            ("⚡perf" . "Performance improvements")
+            ("🛠improve" . "An improvement to a current feature")
+            ("👷ci" . "Changes that effect CI configuration and scripts")
+            ("😒chore" . "Update something without changing production code or impacting the user (release, version bump, etc)")
+            ("📦build" . "Changes that effect the build system or external dependencies (gulp, npm, etc)")
+            ("🚧wip" . "Work In Progress")))
+         (completed-type
+          (yas-completing-read "Choose type: "
+                               (mapcar
+                                (lambda (ale)
+                                  (let* ((key (car ale))
+                                         (desc (cdr ale))
+                                         (padding (make-string (- 16 (length key)) ?\ )))
+                                    (put-text-property 0 (length desc) 'face 'completions-annotations desc)
+                                    (format "%s %s %s" key padding desc)))
+                                commit-types))))
+    (car (split-string completed-type " ")))
+    )}${2:$(if (not (string-blank-p yas-text)) "(")}${2:$$
+(let* ((scopes (git-commit-mode-snippet-scopes)))
+  (yas-auto-next
+      ;(if (not (null scopes))
+       ; (yas-completing-read "Choose scope: " scopes nil t))
+    (x4/-extract-bounded-contexts-from-staged-files)
+     )
+)}${2:$(if (not (string-blank-p yas-text)) ")")}: $0
