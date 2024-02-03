@@ -123,7 +123,7 @@ The default value is 2, meaning that the max number that can be specified is
                              (forward-line 1) (helm-candidate-number-at-point)))
        (setq line-number (helm-candidate-number-at-point)))))
   (let* ((diff1 (abs (- line-number linum-relative-last-pos)))
-         (diff (if (minusp diff1)
+         (diff (if (cl-minusp diff1)
                    diff1
                  (+ diff1 linum-relative-plusp-offset)))
          (current-p (= diff linum-relative-plusp-offset))
@@ -134,7 +134,7 @@ The default value is 2, meaning that the max number that can be specified is
                                (or (nth diff reljump--relative-symbols)
                                    " ")))
          (current-symbol (format "%5s " ; 1 space for boarder, 4 spaces padding
-                                 (if (minusp (- line-number linum-relative-last-pos))
+                                 (if (cl-minusp (- line-number linum-relative-last-pos))
                                      (upcase current-symbol-tmp)
                                    current-symbol-tmp)
                                  ))
