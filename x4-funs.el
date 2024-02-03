@@ -35,39 +35,6 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
-
-;;; Better window swapping - ignores ECB
-(require 'cl)
-(defun non-ecb-window-list ()
-  (if (boundp 'ecb-dedicated-special-buffers)
-      (remove-if
-       #'(lambda (window)
-           (find (window-buffer window) (ecb-dedicated-special-buffers)))
-       (window-list))
-    (window-list)))
-
-;; Needed for new prelude-swap-windows fun
-(defmacro count-non-ecb-windows ()
-  (length (non-ecb-window-list)))
-
-;; ;; redefine prelude's swap windows function to work with ECB
-;; (defun prelude-swap-windows ()
-;;   "If you have 2 windows, it swaps them."
-;;   (interactive)
-;;   (cond ((not (= (count-non-ecb-windows) 2))
-;;          (message "You need exactly 2 windows to do this."))
-;;         (t
-;;          (let* ((w1 (first (non-ecb-window-list)))
-;;                 (w2 (second (non-ecb-window-list)))
-;;                 (b1 (window-buffer w1))
-;;                 (b2 (window-buffer w2))
-;;                 (s1 (window-start w1))
-;;                 (s2 (window-start w2)))
-;;            (set-window-buffer w1 b2)
-;;            (set-window-buffer w2 b1)
-;;            (set-window-start w1 s2)
-;;            (set-window-start w2 s1)))))
-
 (defun prelude-swap-windows ()
   ;;(defun rotate-windows ()
   "Rotate your windows"
