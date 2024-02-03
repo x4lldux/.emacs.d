@@ -131,6 +131,8 @@
 
 (use-package hhn-magic-numbers-docs
   :load-path x4/personal-confidential-path
+  :no-require t
+  :if sys/macp
   :hook
   ((elixir-mode . x4/hhn-magic-numbers-docs-setup)
    (lsp-mode . x4/hhn-magic-numbers-docs-setup))
