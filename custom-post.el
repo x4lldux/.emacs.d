@@ -616,6 +616,12 @@
      ))
 
   :hook (git-commit-setup . x4/git-commit-insert-default-template)
+  :bind (:map magit-mode-map
+         ("M-1" . magit-section-show-level-1-all)
+         ("M-2" . magit-section-show-level-2-all)
+         ("M-3" . magit-section-show-level-3-all)
+         ("M-4" . magit-section-show-level-4-all)
+         )
   )
 
 
