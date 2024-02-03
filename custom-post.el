@@ -88,8 +88,9 @@
   (global-aggressive-indent-mode 0)
   (aggressive-indent-mode 0)
 
-  (global-company-mode 0)
-  (company-mode 0)
+  (when (featurep 'company-mode)
+    (global-company-mode 0)
+    (company-mode 0))
 
   (setq
    global-auto-revert-non-file-buffers t ; revert dired and other buffers
