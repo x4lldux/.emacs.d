@@ -115,6 +115,13 @@
    ;; when C-h use Embark searching
    prefix-help-command #'embark-prefix-help-command
 
+   ;; additional tree sitter grammars
+   treesit-language-source-alist
+   '(
+     (nim "https://github.com/alaviss/tree-sitter-nim.git")
+     (zig "https://github.com/maxxnino/tree-sitter-zig.git")
+     )
+
    ispell-dictionary "american")
 
   :bind (:map dired-mode-map
