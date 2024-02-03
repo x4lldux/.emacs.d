@@ -1,12 +1,14 @@
 ;; custom-post.el --- Custom user configuration.	-*- lexical-binding: t -*-
 
-;;; -*- lexical-binding: t; -*-
+;;; Commentary:
+;; My fancy config 😎
 
-(setq x4/personal-path "~/.emacs.d/personal/"
-      x4/personal-vendor-path (expand-file-name "vendor" x4/personal-path)
-      x4/personal-confidential-path (expand-file-name "confidential" x4/personal-path)
+;;; Code:
 
-      x4/var-path "~/.emacs.d/var/")
+(defvar x4/personal-path "~/.emacs.d/personal/")
+(defvar x4/personal-vendor-path (expand-file-name "vendor" x4/personal-path))
+(defvar x4/personal-confidential-path (expand-file-name "confidential" x4/personal-path))
+(defvar x4/var-path "~/.emacs.d/var/")
 
 (add-to-list 'load-path x4/personal-path)
 (add-to-list 'load-path x4/personal-vendor-path)

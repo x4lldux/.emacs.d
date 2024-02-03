@@ -1,5 +1,7 @@
 ;;; x4-funs.el --- My custom functions.	-*- lexical-binding: t -*-
 
+(require 'cl-lib)
+
 ;;; Smart begining of the line
 (defun x4/smarter-beginning-of-line ()
   "Move point to first beginning-of-line or non-whitespace character or first non-whitespace after comment."
