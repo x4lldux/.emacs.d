@@ -716,6 +716,7 @@
         beacon-color "red"
         beacon-size 48
         beacon-dont-blink-commands '(exchange-point-and-mark)
+        beacon-dont-blink-major-modes '(t magit-status-mode magit-popup-mode inf-ruby-mode mu4e-headers-mode gnus-summary-mode gnus-group-mode dired-mode)
         )
   (beacon-mode 1)
   )
