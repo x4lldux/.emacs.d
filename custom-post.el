@@ -18,7 +18,6 @@
 
 ;; TODO:
 ;; - make saving multiple-cursors allowed/disallowed funs work
-;; - use smart beggining-of-line (mine of crux)
 ;; - general open/find file/buffer in prot, recent files in smart order
 ;; - use adjust ordering in ripgrep, to be similar as in general find
 ;; - figure out completion how to trigger it for regular words (dictionary, last
@@ -214,8 +213,7 @@
 (global-set-key (kbd "C-c D") 'x4/delete-this-file-and-buffer)
 (global-set-key (kbd "C-M-y") 'x4/yank-replace-line)
 (global-set-key (kbd "C-M-;") 'x4/comment-line)
-(global-set-key [remap move-beginning-of-line]
-                #'x4/smarter-beginning-of-line)
+
 ;; (global-set-key [home] 'x4/smarter-beginning-of-line)
 ;; (global-set-key "\C-a" 'x4/smarter-beginning-of-line)
 (global-set-key [(shift insert)] 'x4/yank-primary-at-point)
@@ -509,6 +507,11 @@
 
   :bind
   (("C-c m" . multiple-cursors-hydra/body))) ; defined by centaur
+
+;; Move to the beginning/end of line or code
+(use-package mwim
+  :bind (([remap move-beginning-of-line] . mwim-beginning)
+         ([remap move-end-of-line] . mwim-end)))
 
 ;;; curx from prelude (use-package crux
 (use-package crux

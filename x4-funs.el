@@ -2,32 +2,6 @@
 
 (require 'cl-lib)
 
-;;; Smart begining of the line
-(defun x4/smarter-beginning-of-line ()
-  "Move point to first beginning-of-line or non-whitespace character or first non-whitespace after comment."
-  (interactive "^")
-  (let (
-        (oldpos (point))
-        (indentpos (progn
-                     (back-to-indentation)
-                     (point)
-                     )
-                   )
-        (textpos (progn
-                   (beginning-of-line-text)
-                   (point)
-                   )
-                 )
-        )
-    (cond
-     ((> oldpos textpos) (beginning-of-line-text))
-     ((and (<= oldpos textpos) (> oldpos indentpos))  (back-to-indentation))
-     ((and (<= oldpos indentpos) (> oldpos (line-beginning-position))) (beginning-of-line))
-     (t (beginning-of-line-text))
-     )
-    )
-  )
-
 ;;; clear function for eshell
 (defun eshell/clear ()
   "Clear the eshell buffer."
