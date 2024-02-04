@@ -128,14 +128,8 @@
          )
   )
 
-(use-package hhn-magic-numbers-docs
-  :load-path x4/personal-confidential-path
-  :no-require t
-  :if sys/macp
-  :hook
-  ((elixir-mode . x4/hhn-magic-numbers-docs-setup)
-   (lsp-mode . x4/hhn-magic-numbers-docs-setup))
-  )
+
+;;; Config
 
 ;; auto save when buffer/frame looses focus (from Prelude)
 (use-package super-save
@@ -346,6 +340,7 @@
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(flex))) ;; Configure flex
   :config
+  ;; syncing is shuting down LSPs when changing workspaces/tabs
   (lsp-treemacs-sync-mode -1)
 
   :hook ((elixir-mode . lsp)
@@ -936,8 +931,9 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   :hook
   (git-commit-mode . x4/activate-yas-extra-git-commit-mode-hook-fn)
   )
-                                        ;
-                                        ; git-commit snippet's scopes
+
+;; TODO: move this to separate file
+;; git-commit snippet's scopes
 (defvar git-commit-mode-scopes-list '()
   "Contains a list of scopes to be choose from when committing.")
 
@@ -981,6 +977,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
       ;; (delete-dups (mapcar 'projectile-project-name projectile-known-projects))
       '()
     git-commit-mode-scopes-list))
+
 
 ;;; swap-regions
 (use-package swap-regions
@@ -1320,6 +1317,16 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
          ("C-c C-<right>" . multi-vterm-next)
          ("C-c C-<left>" . multi-vterm-prev)
          )
+  )
+
+;; HHN magic numbers documentation
+(use-package hhn-magic-numbers-docs
+  :load-path x4/personal-confidential-path
+  :no-require t
+  :if sys/macp
+  :hook
+  ((elixir-mode . x4/hhn-magic-numbers-docs-setup)
+   (lsp-mode . x4/hhn-magic-numbers-docs-setup))
   )
 
 (print "custom-post LOADED!")
