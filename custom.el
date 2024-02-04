@@ -30,8 +30,6 @@
 ;; (setq desktop-base-file-name (format ".emacs-%s.desktop" emacs-major-version))
 ;; (setq desktop-base-lock-name (format ".emacs-%s.desktop.lock" emacs-major-version))
 
-(put 'dired-find-alternate-file 'disabled nil)
-
 (setq centaur-prettify-symbols-alist
       '(("lambda" . ?λ)
         ("<-"     . ?←)

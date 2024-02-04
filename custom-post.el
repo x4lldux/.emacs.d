@@ -123,13 +123,22 @@
 
    ispell-dictionary "american")
 
-  :bind (:map dired-mode-map
-         ([remap dired-find-file ] . dired-find-alternate-file)
-         )
   )
 
 
 ;;; Config
+
+(use-package dired
+  :ensure nil
+  :init
+  (put 'dired-find-alternate-file 'disabled nil)
+  :custom
+  (dired-kill-when-opening-new-dired-buffer 't)
+
+  :bind (:map dired-mode-map
+         ([remap dired-find-file ] . dired-find-alternate-file)
+         )
+  )
 
 ;; auto save when buffer/frame looses focus (from Prelude)
 (use-package super-save
