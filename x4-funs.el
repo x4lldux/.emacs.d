@@ -1,6 +1,8 @@
 ;;; x4-funs.el --- My custom functions.	-*- lexical-binding: t -*-
 
 (require 'cl-lib)
+(require 'dash)
+(require 's)
 
 ;;; clear function for eshell
 (defun eshell/clear ()
@@ -158,5 +160,13 @@
   (if-let (last-window (get-mru-window nil nil t))
       (select-window last-window)))
 
+
+
+(defun x4/sugest-elixir-module-name ()
+  (let* ((lib-path (concat (project-root (project-current)) "lib/"))
+         (relative-path (file-relative-name buffer-file-name lib-path)))
+    (alchemist-utils-path-to-module-name relative-path)
+    )
+  )
 
 (provide 'x4-funs)
