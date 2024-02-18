@@ -1090,7 +1090,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 
 ;; unload because we have two modified alchemist files in personal and they need
 ;; to be loaded from our personal dir, instead of elpa dir
-(dolist (f '(alchemist-phoenix alchemist-goto alchemis-file))
+(dolist (f '(alchemist-phoenix alchemist-goto alchemist-file alchemist-mix alchemist-hooks))
   (when (featurep f)
     (unload-feature f 't)))
 
@@ -1103,13 +1103,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 
   :config
   (defun x4/-alchemist-set-env (env)
-    (setq
-     alchemist-mix-env env
-     process-environment (cons
-                          (concat "MIX_ENV=" env)
-                          (--remove (s-prefix-p "MIX_ENV=" it)
-                                    process-environment))
-     ))
+    (setq alchemist-mix-env env))
 
   :pretty-hydra
   ((:title (pretty-hydra-title "Alchemist" 'sucicon "nf-custom-elixir")
@@ -1136,7 +1130,6 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
      ;; ("h r" alchemist-refcard "refcard") ; Generate an Alchemist refcard of all the features.
      )
 
-    ;; TODO: add togle to enable test env
     "Mix"
     (("x" alchemist-mix "mix") ; Prompt for a specific mix task to run.
      ("m c" alchemist-mix-compile "compile") ; Compile the whole elixir project. Prompt for the mix env if the prefix
