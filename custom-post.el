@@ -316,6 +316,15 @@
   (("C-x p f" . consult-project-extra-find)
    ("C-x p o" . consult-project-extra-find-other-window)))
 
+;; consult-dir - insert paths into minibuffer prompts
+(use-package consult-dir
+  :ensure t
+  :bind (
+         ("C-x C-d" . consult-dir)
+         :map minibuffer-local-completion-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
+
 ;;; Golden ratio
 (use-package golden-ratio
   :init
