@@ -1273,7 +1273,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
    auto-mode-alist (rassq-delete-all 'elixir-ts-mode auto-mode-alist)
 
    ;; set ElixirLS version to use
-   lsp-elixir-ls-version "v0.19.0"
+   lsp-elixir-ls-version "v0.20.0"
    lsp-elixir-ls-download-url (format "https://github.com/elixir-lsp/elixir-ls/releases/download/%s/elixir-ls-%s.zip"
                                       lsp-elixir-ls-version lsp-elixir-ls-version))
   :hook ((alchemist-test-report-mode . visual-line-mode))
