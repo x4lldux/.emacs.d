@@ -305,9 +305,16 @@
   ((vertico-posframe-parameters '((left-fringe . 8) (right-fringe . 8) (alpha . 90))))
   )
 
+;; consult & co
 (use-package consult
   :custom
   ((consult-preview-key 'any)))
+
+;; consult extensiond for project.el
+(use-package consult-project-extra
+  :bind
+  (("C-x p f" . consult-project-extra-find)
+   ("C-x p o" . consult-project-extra-find-other-window)))
 
 ;;; Golden ratio
 (use-package golden-ratio
