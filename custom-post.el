@@ -336,8 +336,34 @@
   :init
   (global-corfu-mode 1)
   (corfu-history-mode 1)
+  (corfu-indexed-mode 1)
+
+  :config
+  ;; enable corfu in minibuffer (when not handled by vertico)
+  (defun x4/-corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer."
+    (when (local-variable-p 'completion-at-point-functions)
+      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
+      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+                  corfu-popupinfo-delay nil)
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'x4/-corfu-enable-in-minibuffer)
+
+  ;; transfer completion to minibuffer for richer control
+  (defun x4/-corfu-move-to-minibuffer ()
+    (interactive)
+    (pcase completion-in-region--data
+      (`(,beg ,end ,table ,pred ,extras)
+       (let ((completion-extra-properties extras)
+             completion-cycle-threshold completion-cycling)
+         (consult-completion-in-region beg end table pred)))))
+
+  (keymap-set corfu-map "M-m" #'x4/-corfu-move-to-minibuffer)
+  (add-to-list 'corfu-continue-commands #'x4/-corfu-move-to-minibuffer)
   )
 ;; TODO: experiment with cape
+;; TODO: add company as a backend via cape-company-to-capf
+;; TODO: add corfu-terminal
 
 ;;; LSP
 (use-package lsp-mode
