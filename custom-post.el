@@ -650,7 +650,7 @@
     (let ((branch-name (or branch-name (magit-get-current-branch)))
           (TICKET-PATTERN ".*\\b[Hh][Ss][-_ ]?\\([[:digit:]]+\\)\\b.*"))
       (when (string-match-p TICKET-PATTERN branch-name)
-            (s-upcase (replace-regexp-in-string TICKET-PATTERN "HS-\\1: " branch-name))
+            (s-upcase (replace-regexp-in-string TICKET-PATTERN "HS-\\1" branch-name))
         )))
 
   (defun x4/insert-notion-id-from-current-branch ()
@@ -669,9 +669,22 @@
 
   (defun x4/git-commit-insert-default-template ()
     (cond
-     ((x4/-first-commit-in-branch-p)
-        (x4/insert-notion-id-from-current-branch))
-     ('t (insert "type"))
+    ;; insert Notion ID as part of commit in specific projects
+    ((and (x4/-first-commit-in-branch-p)
+          (member (project-name (project-current))
+                  '("solis" "veritas")))
+     (x4/insert-notion-id-from-current-branch)
+     (insert ": "))
+
+    ;; insert Notion ID as a ref inside commit message
+    ((x4/-extract-notion-id-from-branch)
+     (insert "type\n\nRefs: ")
+     (x4/insert-notion-id-from-current-branch)
+     (goto-char (point-min))
+     (forward-word))
+
+    ('t
+      (insert "type"))
      ))
 
   :hook (git-commit-setup . x4/git-commit-insert-default-template)
