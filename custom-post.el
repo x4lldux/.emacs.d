@@ -669,6 +669,10 @@
 
   (defun x4/git-commit-insert-default-template ()
     (cond
+     ;; empty line
+     ((not (eq (pos-bol) (pos-eol)))
+      nil)
+
     ;; insert Notion ID as part of commit in specific projects
     ((and (x4/-first-commit-in-branch-p)
           (member (project-name (project-current))
