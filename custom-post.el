@@ -1331,7 +1331,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   :hook (after-init . tabspaces-mode)
   :custom
   (tabspaces-use-filtered-buffers-as-default t)
-  (tabspaces-include-buffers '("*scratch*" "*oMessages*" "*dashboard*"))
+  (tabspaces-include-buffers '("*scratch*" "*Messages*"))
   (tabspaces-default-tab "Default")
   ;; (progn
   ;;   (tab-bar-rename-tab "Default")
