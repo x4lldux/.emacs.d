@@ -1396,7 +1396,10 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 
 ;; Multi VTerm
 (use-package multi-vterm
-  :bind (:map vterm-mode-map
+  :bind (("<f9>" . multi-vterm-project)
+         ("C-<f9>" . shell-pop-toggle)
+         :map vterm-mode-map
+         ("<f9>" . multi-vterm-project)
          ("C-c C-`" . multi-vterm)
          ("C-c C-<right>" . multi-vterm-next)
          ("C-c C-<left>" . multi-vterm-prev)
