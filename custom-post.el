@@ -691,7 +691,9 @@
       (insert "type"))
      ))
 
-  :hook (git-commit-setup . x4/git-commit-insert-default-template)
+  :hook
+  ((git-commit-setup . x4/git-commit-insert-default-template)
+   (after-save . magit-after-save-refresh-status))
   :bind (:map magit-mode-map
          ("M-1" . magit-section-show-level-1-all)
          ("M-2" . magit-section-show-level-2-all)
