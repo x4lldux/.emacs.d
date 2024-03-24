@@ -1430,6 +1430,13 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
                 (insert hl-todo-highlight-punctuation " ")))
   )
 
+;; Enforce rules for popups
+;; piggyback on Centaur
+(use-package popper
+  :custom
+  (popper-group-function #'popper-group-by-project)
+  )
+
 (print "custom-post LOADED!")
 
 (provide 'custom-post)
