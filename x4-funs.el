@@ -11,6 +11,8 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
+;; TODO: check if this can be replaced by a crux package
+;; TODO: why there are two functions? and one has commented-out diff fun name?
 (defun prelude-swap-windows ()
   ;;(defun rotate-windows ()
   "Rotate your windows"
