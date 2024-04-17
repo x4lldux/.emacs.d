@@ -175,11 +175,10 @@ with the prompt and chosen number afterward calling FUNCTION."
       final-num)))
 
 (defun reljump--linum-on ()
-  (if (memq 'display-line-numbers-mode minor-mode-list)
-      (progn
-        (setq reljump--display-line-numbers-enabled 't)
-        (display-line-numbers-mode -1))
-    (setq reljump--display-line-numbers-enabled nil))
+  (setq reljump--display-line-numbers-enabled nil)
+  (when (bound-and-true-p display-line-numbers-mode)
+    (setq reljump--display-line-numbers-enabled 't)
+    (display-line-numbers-mode -1))
 
   (unless (eq linum-format 'reljump-linum-relative-format)
     (setq linum-relative-user-format linum-format)
@@ -189,8 +188,9 @@ with the prompt and chosen number afterward calling FUNCTION."
 (defun reljump--linum-off ()
   (setq linum-format linum-relative-user-format)
   (linum-mode -1)
-  (when reljump--display-line-numbers-enabled
-    (display-line-numbers-mode 1)))
+  (if reljump--display-line-numbers-enabled
+      (display-line-numbers-mode 1)
+    (display-line-numbers-mode -1)))
 
 (defun reljump-run (&optional pre-jump-function post-jump-function)
   "Jump up or down depending on what keys you press.
