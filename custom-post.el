@@ -1424,13 +1424,14 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
                            (add-hook 'flymake-diagnostic-functions
                                      #'hl-todo-flymake nil t))))
   :init (setq hl-todo-require-punctuation t
-              hl-todo-highlight-punctuation ":")
+              hl-todo-highlight-punctuation ": ")
   :config
   (dolist (keyword '("REVIEW"))
     (add-to-list 'hl-todo-keyword-faces `(,keyword . "#ecb8bb")))
   (advice-add #'hl-todo-insert :after
-              (defun x4/-insert-punctuation-after (&rest r)
-                (insert hl-todo-highlight-punctuation " ")))
+              (defun x4/-insert-space-after (&rest r)
+                (delete-horizontal-space)
+                (insert " ")))
   )
 
 ;; Enforce rules for popups
