@@ -1166,6 +1166,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   ;; (add-to-list 'popper-reference-buffers 'alchemist-mix-mode)
   (add-to-list 'popper-reference-buffers 'alchemist-test-report-mode)
   (popper--set-reference-vars)          ; update popper to recognize buffers
+  (define-key alchemist-mode-map (kbd "C-c M-r") nil)
 
   (defun x4/-alchemist-set-env (env)
     (setq alchemist-mix-env env))
