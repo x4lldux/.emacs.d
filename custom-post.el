@@ -1503,6 +1503,25 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   (highlight-indent-guides-top-character-face ((t (:weight bold :foreground "grey35"))))
 )
 
+;; copilot
+(use-package copilot
+  :load-path "personal/vendor/copilot.el"
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)
+         ("C-M-<left>" . 'copilot-previous-completion)
+         ("C-M-<right>" . 'copilot-next-completion)
+         ("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         ("S-TAB" . 'copilot-accept-completion-by-line)
+         ("S-<tab>" . 'copilot-accept-completion-by-line))
+  :config
+  (setq copilot-indent-offset-warning-disable 't)
+  (add-to-list 'copilot-indentation-alist '(elixir-mode elixir-basic-offset))
+  (add-to-list 'copilot-indentation-alist '(lisp-mode lisp-body-offset))
+  )
+
 (print "custom-post LOADED!")
 
 (provide 'custom-post)
