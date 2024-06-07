@@ -1358,36 +1358,39 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
     (call-interactively
      (eval `(pretty-hydra-define tabspaces
               (:title (pretty-hydra-title "Tabspaces" 'mdicon "nf-md-tab")
-                :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark)
-                :exit t :quit-key ("q" "C-g" "RET"))
-               ("Buffers"
-                (("r" tabspaces-remove-current-buffer "remove current")
-                 ("R" tabspaces-remove-selected-buffer "remove selected")
-                 ("C" tabspaces-clear-buffers "clear list")
-                 )
-                "Switch"
-                (("[" tab-bar-switch-to-recent-tab "to recent tab")
-                 ("<tab>" tab-bar-switch-to-tab "tab by name")
-                 ("b" tabspaces-switch-to-buffer "local buffer")
-                 ("g" tabspaces-switch-buffer-and-tab "global buffer")
-                 ("<left>" tab-bar-switch-to-prev-tab "prev tab" :exit nil)
-                 ("<right>" tab-bar-switch-to-next-tab "next tab" :exit nil))
-                 "Switch to"
-                 (,@(-take 10 (-map-indexed
-                               (lambda (i tab)
-                                (list (if (/= i 9) (number-to-string (1+ i)) "0")
-                                      (lambda () (interactive)
-                                        (tab-bar-switch-to-tab tab))
-                                      tab))
-                              (tabspaces--list-tabspaces)))
-                 )
-                "Workspace"
-                (("o" tabspaces-open-or-create-project-and-workspace "open")
-                 ("S" tabspaces-switch-or-create-workspace "switch or open")
-                 ("k" tabspaces-kill-buffers-close-workspace "kill & close")
-                 ("d" tabspaces-close-workspace "close don't kill")
-                 )
-                )))
+               :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark)
+               :exit t :quit-key ("q" "C-g" "RET"))
+              ("Buffers"
+               (("r" tabspaces-remove-current-buffer "remove current")
+                ("R" tabspaces-remove-selected-buffer "remove selected")
+                ("C" tabspaces-clear-buffers "clear list")
+                )
+               "Switch"
+               (("[" tab-bar-switch-to-recent-tab "to recent tab")
+                ("<tab>" tab-bar-switch-to-tab "tab by name")
+                ("b" tabspaces-switch-to-buffer "local buffer")
+                ("g" tabspaces-switch-buffer-and-tab "global buffer")
+                ("<left>" tab-bar-switch-to-prev-tab "prev tab" :exit nil)
+                ("<right>" tab-bar-switch-to-next-tab "next tab" :exit nil))
+               "Switch to"
+               (,@(-take 10 (-map-indexed
+                             (lambda (i tab)
+                               (list (if (/= i 9) (number-to-string (1+ i)) "0")
+                                     (lambda () (interactive)
+                                       (tab-bar-switch-to-tab tab))
+                                     (if (s-contains-p "_" tab)
+                                         (s-replace-all '(("_" . "__")) tab)
+                                       tab)
+                                     ))
+                             (tabspaces--list-tabspaces)))
+                )
+               "Workspace"
+               (("o" tabspaces-open-or-create-project-and-workspace "open")
+                ("S" tabspaces-switch-or-create-workspace "switch or open")
+                ("k" tabspaces-kill-buffers-close-workspace "kill & close")
+                ("d" tabspaces-close-workspace "close don't kill")
+                )
+               )))
      ))
 
   ;; :chords
