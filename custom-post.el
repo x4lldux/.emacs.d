@@ -1161,6 +1161,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   :custom
   (alchemist-key-command-prefix (kbd "C-c C-a"))
   (alchemist-mix-env "dev")
+  (alchemist-test-truncate-lines nil)
 
   :config
   ;; (add-to-list 'popper-reference-buffers 'alchemist-mix-mode)
@@ -1314,7 +1315,6 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
    lsp-elixir-ls-version "v0.20.0"
    lsp-elixir-ls-download-url (format "https://github.com/elixir-lsp/elixir-ls/releases/download/%s/elixir-ls-%s.zip"
                                       lsp-elixir-ls-version lsp-elixir-ls-version))
-  :hook ((alchemist-test-report-mode . visual-line-mode))
   :bind (:map elixir-mode-map
          ("C-c C-u" . string-inflection-elixir-style-cycle)))
 
