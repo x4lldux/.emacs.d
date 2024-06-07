@@ -386,6 +386,8 @@
   (corfu-auto t)
   (corfu-quit-at-boundary 'separator)
   (corfu-preview-current nil)
+  (corfu-popupinfo-max-height 30)
+
   :bind (:map corfu-map
          ("M-SPC" . corfu-insert-separator))
   :init
@@ -422,13 +424,17 @@
 
 ;;; LSP
 (use-package lsp-mode
-  :custom
-  (lsp-completion-provider :none) ;; we use Corfu!
   :init
   (setq lsp-keymap-prefix "C-c C-l")
   (defun x4/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(flex))) ;; Configure flex
+
+  :custom
+  (lsp-completion-provider :none) ;; we use Corfu!
+  (lsp-ui-doc-max-height 30)
+  (lsp-ui-doc-alignment 'window)
+
   :config
   ;; syncing is shuting down LSPs when changing workspaces/tabs
   (lsp-treemacs-sync-mode -1)
