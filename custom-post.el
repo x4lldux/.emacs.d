@@ -1371,6 +1371,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   :custom
   (tab-bar-show 't)
   (tab-bar-tab-hints 't)
+  (tab-bar-new-tab-choice "*scratch*")
   :custom-face
   (tab-bar-tab ((t (:foreground "#51afef"))))
   :config
