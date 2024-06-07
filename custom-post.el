@@ -1106,7 +1106,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   :hook (after-init . which-key-mode)
 
   :custom
-  (which-key-sort-order 'which-key-prefix-then-key-order)
+  (which-key-sort-order 'which-key-key-order)
   (which-key-show-remaining-keys t)
   (which-key-min-description-width 32)
   (which-key-max-description-length 128)
