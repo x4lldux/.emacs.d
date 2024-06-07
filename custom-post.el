@@ -674,6 +674,8 @@
   (magit-log-section-arguments '("--graph" "--color" "--decorate" "-n256"))
   (magit-section-initial-visibility-alist '((stashes . hide) (todos . show) (unpushed . show)))
   (magit-status-margin '(t age magit-log-margin-width nil 18))
+  :custom-face
+  (magit-diff-revision-summary ((t (:inherit (magit-blame-heading)))))
 
   :config
   ;; highlight conventional-commits as keywords
