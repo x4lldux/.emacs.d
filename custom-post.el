@@ -1480,8 +1480,9 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   :init (setq hl-todo-require-punctuation t
               hl-todo-highlight-punctuation ": ")
   :config
-  (dolist (keyword '("REVIEW"))
-    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#ecb8bb")))
+
+  (add-to-list 'hl-todo-keyword-faces '("REVIEW" . "#ecb8bb"))
+  (add-to-list 'hl-todo-keyword-faces '("RANT" . "#ff6666"))
   (advice-add #'hl-todo-insert :after
               (defun x4/-insert-space-after (&rest r)
                 (delete-horizontal-space)
