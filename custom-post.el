@@ -1370,6 +1370,9 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   :demand t
   :custom
   (tab-bar-show 't)
+  (tab-bar-tab-hints 't)
+  :custom-face
+  (tab-bar-tab ((t (:foreground "#51afef"))))
   :config
   (tab-bar-mode 1))
 
