@@ -459,10 +459,10 @@
      )
     "Peek"
     (
-     ("G g" lsp-ui-peek-find-definitions "definitions")
-     ("G i" lsp-ui-peek-find-implementation "implementation")
-     ("G r" lsp-find-references "reference")
-     ("G s" lsp-ui-peek-find-workspace-symbol "workspace symbol")
+     ("p g" lsp-ui-peek-find-definitions "definitions")
+     ("p i" lsp-ui-peek-find-implementation "implementation")
+     ("p r" lsp-find-references "reference")
+     ("p s" lsp-ui-peek-find-workspace-symbol "workspace symbol")
      )
     ;; "Toggle"
     ;; (
