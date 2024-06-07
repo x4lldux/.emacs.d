@@ -1478,9 +1478,8 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
                            (add-hook 'flymake-diagnostic-functions
                                      #'hl-todo-flymake nil t))))
   :init (setq hl-todo-require-punctuation t
-              hl-todo-highlight-punctuation ": ")
+              hl-todo-highlight-punctuation ":")
   :config
-
   (add-to-list 'hl-todo-keyword-faces '("REVIEW" . "#ecb8bb"))
   (add-to-list 'hl-todo-keyword-faces '("RANT" . "#ff6666"))
   (advice-add #'hl-todo-insert :after
