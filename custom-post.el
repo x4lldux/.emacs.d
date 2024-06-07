@@ -1495,6 +1495,14 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   (popper-group-function #'popper-group-by-project)
   )
 
+
+;; hilight-indent-guides
+(use-package highlight-indent-guides
+  :custom-face
+  (highlight-indent-guides-character-face ((t (:weight medium :foreground "grey24"))))
+  (highlight-indent-guides-top-character-face ((t (:weight bold :foreground "grey35"))))
+)
+
 (print "custom-post LOADED!")
 
 (provide 'custom-post)
