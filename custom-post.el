@@ -121,8 +121,14 @@
      (zig "https://github.com/maxxnino/tree-sitter-zig.git")
      )
 
-   ispell-dictionary "american")
+   ispell-dictionary "american"
 
+
+   ;; set sideline & sideline flymake
+   sideline-flymake-display-mode 'line
+   sideline-flymake-show-backend-name 't
+   sideline-display-backend-name 't
+   )
   )
 
 
