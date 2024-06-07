@@ -1522,6 +1522,40 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   (add-to-list 'copilot-indentation-alist '(lisp-mode lisp-body-offset))
   )
 
+
+;; Search
+(use-package webjump
+  :ensure nil
+  :bind ("C-c /" . webjump)
+  :custom
+  ;; NOTE: default browser is set to xwidget-webkit, use it
+  (webjump-use-internal-browser nil)
+  :init (setq webjump-sites
+              '(;; Emacs
+                ("Emacs Docs" .
+                 [simple-query "emacsdocs.org/docs/emacs/The-Emacs-Editor"
+                               "emacsdocs.org/search?q=" ""])
+                ("ELisp Docs" .
+                 [simple-query "emacsdocs.org/docs/elisp/Emacs-Lisp"
+                               "emacsdocs.org/search?q=" ""])
+                ("Magit docs" . "magit.vc/manual/magit/")
+                ("Mastering Emacs" .
+                 "www.masteringemacs.org/")
+
+                ;; Search engines.
+                ("Hexdocs" .
+                 [simple-query "hexdocs.pm"
+                               "hexdocs.pm/" "/"])
+                ("Hex.pm" .
+                 [simple-query "hex.pm"
+                               "hex.pm/packages?sort=recent_downloads&search=" ""])
+                ("Google" .
+                 [simple-query "www.google.com"
+                               "www.google.com/search?q=" ""])
+                ("Wikipedia" .
+                 [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""]))))
+
+
 (print "custom-post LOADED!")
 
 (provide 'custom-post)
