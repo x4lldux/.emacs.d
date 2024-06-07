@@ -721,21 +721,21 @@
      ((not (eq (pos-bol) (pos-eol)))
       nil)
 
-    ;; insert Notion ID as part of commit in specific projects
+     ;; insert Notion ID as part of commit in specific projects
      ((and (x4/-first-commit-in-branch-p)
            (-any-p #'x4/project-named-p
                    '("solis" "veritas")))
-     (x4/insert-notion-id-from-current-branch)
-     (insert ": "))
+      (x4/insert-notion-id-from-current-branch)
+      (insert ": "))
 
-    ;; insert Notion ID as a ref inside commit message
-    ((x4/-extract-notion-id-from-branch)
-     (insert "type\n\nRefs: ")
-     (x4/insert-notion-id-from-current-branch)
-     (goto-char (point-min))
-     (forward-word))
+     ;; insert Notion ID as a ref inside commit message
+     ((x4/-extract-notion-id-from-branch)
+      (insert "type\n\nRefs: ")
+      (x4/insert-notion-id-from-current-branch)
+      (goto-char (point-min))
+      (forward-word))
 
-    ('t
+     ('t
       (insert "type"))
      ))
 
