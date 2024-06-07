@@ -29,10 +29,11 @@ ${1:$$(yas-auto-next
                                 commit-types))))
     (car (split-string completed-type " ")))
     )}${2:$(if (not (string-blank-p yas-text)) "(")}${2:$$
-(let* ((scopes (git-commit-mode-snippet-scopes)))
+(let* ((scopes (x4/-git-commit-mode-snippet-scopes)))
   (yas-auto-next
-      ;(if (not (null scopes))
-       ; (yas-completing-read "Choose scope: " scopes nil t))
-    (x4/-extract-bounded-contexts-from-staged-files)
+      (if (not (null scopes))
+          (yas-completing-read "Choose scope: " scopes nil t)
+          (x4/-extract-bounded-contexts-from-staged-files)
+        )
      )
 )}${2:$(if (not (string-blank-p yas-text)) ")")}: $0

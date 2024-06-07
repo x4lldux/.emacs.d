@@ -171,4 +171,8 @@
     )
   )
 
+(defun x4/project-named-p (name)
+  "Check if the current project is named NAME."
+  (string= (project-name (project-current)) name))
+
 (provide 'x4-funs)

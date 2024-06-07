@@ -722,9 +722,9 @@
       nil)
 
     ;; insert Notion ID as part of commit in specific projects
-    ((and (x4/-first-commit-in-branch-p)
-          (member (project-name (project-current))
-                  '("solis" "veritas")))
+     ((and (x4/-first-commit-in-branch-p)
+           (-any-p #'x4/project-named-p
+                   '("solis" "veritas")))
      (x4/insert-notion-id-from-current-branch)
      (insert ": "))
 
@@ -1091,11 +1091,25 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
     )
   )
 
-(defun git-commit-mode-snippet-scopes ()
-  (if (null git-commit-mode-scopes-list)
-      ;; (delete-dups (mapcar 'projectile-project-name projectile-known-projects))
-      '()
-    git-commit-mode-scopes-list))
+(defun x4/-git-commit-mode-snippet-scopes ()
+  (or
+   git-commit-mode-scopes-list
+   (and (x4/project-named-p "personal")
+        (progn
+          ;; read personal/custom-post.el
+          ;; extract package names from lines with "ues-package"
+          ;; return as list
+          (with-temp-buffer
+            (insert-file-contents (expand-file-name "custom-post.el" x4/personal-path))
+            (goto-char (point-min))
+            (let ((packages '()))
+              (while (re-search-forward "(use-package \\([^ \n]+\\)" nil t)
+                (let ((package (match-string 1)))
+                  (push package packages)))
+              (nreverse packages)))
+          ))
+   '()                             ; it's redundant, but makes intent clear
+   ))
 
 
 ;;; swap-regions
