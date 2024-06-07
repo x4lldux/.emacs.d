@@ -272,8 +272,6 @@
                                     (save-mark-and-excursion
                                       (recursive-edit)))))
 
-(global-set-key (kbd "C-c .") 'lsp-ui-doc-glance)
-
 ;; TODO: doesn't work on Mac with my version of PL-Lefty
 ;; Map alt_gr+homerow to numbers
 (define-key key-translation-map (kbd "C-ą")   (kbd "1"))
@@ -442,9 +440,9 @@
   :hook ((elixir-mode . lsp)
          (lsp-completion-mode . x4/lsp-mode-setup-completion))
 
-  :bind
-  (("M-<down-mouse-1>" . lsp-find-definition-mouse)
-   ("C-c l" . lsp-mode-hydra/body))
+  :bind (("M-<down-mouse-1>" . lsp-find-definition-mouse)
+         ("C-c l" . lsp-mode-hydra/body)
+         ("C-c ." . lsp-ui-doc-glance))
 
   :pretty-hydra
   ((:title (pretty-hydra-title "LSP" 'mdicon "nf-md-rocket_launch")
