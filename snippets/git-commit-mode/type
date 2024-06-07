@@ -12,7 +12,7 @@ ${1:$$(yas-auto-next
             ("✅test" . "Adding missing tests of correcting existing ones")
             ("⏪revert" . "Commit reverts")
             ("⚡perf" . "Performance improvements")
-            ("🛠improve" . "An improvement to a current feature")
+            ("🛠️improve" . "An improvement to a current feature")
             ("👷ci" . "Changes that effect CI configuration and scripts")
             ("😒chore" . "Update something without changing production code or impacting the user (release, version bump, etc)")
             ("📦build" . "Changes that effect the build system or external dependencies (gulp, npm, etc)")

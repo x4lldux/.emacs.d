@@ -1025,6 +1025,15 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 (use-package emojify
   :defer 1
   :config
+  ;; fix for hammer and wrench emoji that contains variant selector, to not be
+  ;; displayed as two chars or a taller charactes
+  (setq emojify-user-emojis '(("🛠️" . (("name" . "Hammer And Wrench")
+                                      ("image" . "1f6e0.png")
+                                      ("style" . "unicode")))))
+  ;; If emojify is already loaded refresh emoji data
+  (when (featurep 'emojify)
+    (emojify-set-emoji-data))
+
   ;; setup emojis in minibuffer
   (defun x4/-emojify-minibuffer-hook-fn ()
     ;; (setq emojify-minibuffer-reading-emojis-p 't)
