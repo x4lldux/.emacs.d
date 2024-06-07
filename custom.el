@@ -82,7 +82,7 @@
                      ((< emacs-major-version 28)
                       (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
                      (t
-                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
+                      (set-fontset-font t 'emoji (font-spec :family font :size 8) nil 'prepend))))
 
     ;; Specify font for Chinese characters
     (cl-loop for font in '("WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")

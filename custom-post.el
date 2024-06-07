@@ -1029,9 +1029,10 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   (defun x4/-emojify-minibuffer-hook-fn ()
     ;; (setq emojify-minibuffer-reading-emojis-p 't)
     (emojify-mode +1))
-  (global-emojify-mode 't)
-  :hook (minibuffer-setup-hook . x4/-emojify-minibuffer-hook-fn)
+  :hook ((after-init . global-emojify-mode)
+         (minibuffer-setup-hook . x4/-emojify-minibuffer-hook-fn))
   :custom
+  (emojify-display-style 'image)
   (emojify-emojis-dir (expand-file-name "emojis" x4/var-path)))
 
 
