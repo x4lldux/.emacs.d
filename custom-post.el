@@ -1244,7 +1244,8 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 
     "Mix"
     (("x" alchemist-mix "mix") ; Prompt for a specific mix task to run.
-     ("m c" alchemist-mix-compile "compile") ; Compile the whole elixir project. Prompt for the mix env if the prefix
+     ("c" (lambda() (interactive) (alchemist-mix-execute '("compile"))) "compile") ; Compile the whole elixir project. Prompt for the mix env if the prefix
+     ("m c" alchemist-mix-compile "compile with params") ; Compile the whole elixir project. Prompt for the mix env if the prefix
      ("m d" (lambda() (interactive) (alchemist-mix-execute '("deps.compile"))) "compile deps")
      ("m g" (lambda() (interactive) (alchemist-mix-execute '("deps.get"))) "get deps")
      ("f f" (lambda() (interactive) (alchemist-mix-execute (concat "format " buffer-file-name))) "format this file")
