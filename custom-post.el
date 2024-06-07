@@ -1132,6 +1132,12 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   :bind ("C-h M-m" . which-key-show-full-major-mode)
   :hook (after-init . which-key-mode)
 
+  :config
+  ;; when C-h use Embark searching, this is a workaround because which-key is
+  ;; overriding previously set prefix-help-command
+  (setq prefix-help-command #'embark-prefix-help-command
+        which-key-use-C-h-commands nil)
+
   :custom
   (which-key-sort-order 'which-key-key-order)
   (which-key-show-remaining-keys t)
