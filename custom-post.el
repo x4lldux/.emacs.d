@@ -123,6 +123,7 @@
 
    ispell-dictionary "american"
 
+   browse-url-browser-function 'xwidget-webkit-browse-url
 
    ;; set sideline & sideline flymake
    sideline-flymake-display-mode 'line
@@ -1555,6 +1556,31 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
                 ("Wikipedia" .
                  [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""]))))
 
+
+;; xwwp
+(xwwp-js-def follow-input fetch-inputs ()
+  "Fetch all visible, non empty links from the current page.""
+var r = {};
+window.__xwidget_plus_input_candidates = Array.from(document.querySelectorAll('input[type]:not([type=submit]):not([type=hidden]),textarea'));
+window.__xwidget_plus_input_candidates.forEach((e, i) => {
+  if(e.style[\"display\"] != \"none\") {
+    r[i] = [e.title || e.ariaLabel || e.name];
+  }
+});
+return r;
+")
+
+;; (xwwp-js-def follow-links fetch-links ()
+;;   "Fetch all visible, non empty links from the current page.""
+;; var r = {};
+;; window.__xwidget_plus_input_candidates = Array.from(document.querySelectorAll('input[type]:not([type=submit]):not([type=hidden]),textarea'));
+;; window.__xwidget_plus_input_candidates.forEach((e, i) => {
+;;   if(e.style[\"display\"] != \"none\") {
+;;     r[i] = [e.title || e.ariaLabel || e.name, ''];
+;;   }
+;; });
+;; return r;
+;; ")
 
 (print "custom-post LOADED!")
 
