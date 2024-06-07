@@ -436,6 +436,7 @@
   :config
   ;; syncing is shuting down LSPs when changing workspaces/tabs
   (lsp-treemacs-sync-mode -1)
+  (which-key-add-key-based-replacements "C-c l" "LSP hydra")
 
   :hook ((elixir-mode . lsp)
          (lsp-completion-mode . x4/lsp-mode-setup-completion))
@@ -607,6 +608,7 @@
   :demand t
   :config
   (crux-with-region-or-line kill-region)
+  (which-key-add-key-based-replacements "C-c d" nil)
   :bind (("M-o" . crux-smart-open-line)
          ("S-<return>" . crux-smart-open-line)
          ("C-S-<return>" . crux-smart-open-line-above)
