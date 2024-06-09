@@ -717,6 +717,8 @@
   (magit-log-section-arguments '("--graph" "--color" "--decorate" "-n256"))
   (magit-section-initial-visibility-alist '((stashes . hide) (todos . show) (unpushed . show)))
   (magit-status-margin '(t age magit-log-margin-width nil 18))
+  (magit-display-buffer-function #'x4/-magit-status-buffer-side-window)
+
   :custom-face
   (magit-diff-revision-summary ((t (:inherit (magit-blame-heading)))))
 
@@ -781,6 +783,30 @@
      ('t
       (insert "type"))
      ))
+
+  (defun x4/display-buffer-new-right-most-window (buffer alist)
+    "Returns the right-most window in the frame."
+    (print buffer)
+    (let ((last-window (selected-window)))
+      (while-let ((other-window (windmove-find-other-window 'right nil last-window)))
+        (setq last-window other-window))
+      (->
+         buffer
+         (window--display-buffer (split-window-right nil last-window) 'window alist)
+         select-window
+       )
+      ;; (select-window (window--display-buffer buffer  'window alist))
+    ))
+
+  (defun x4/-magit-status-buffer-side-window (buffer)
+    (let ((major-mode (with-current-buffer buffer major-mode)))
+      (cond
+       ((eql major-mode #'magit-status-mode)
+        (display-buffer buffer '(x4/display-buffer-new-right-most-window)))
+
+        ('t
+         (funcall #'magit-display-buffer-traditional buffer)))
+       ))
 
   :hook
   ((git-commit-setup . x4/git-commit-insert-default-template)
