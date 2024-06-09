@@ -341,8 +341,6 @@
   (vertico-posframe-parameters '((left-fringe . 8) (right-fringe . 8) (alpha . 90)))
   (vertico-count 15)
 
-  :bind (("<f12>" . x4/move-posframe))
-
   :config
   (defun posframe-poshandler-frame-center-quarter-to-bottom (info)
     (cons (/ (- (plist-get info :parent-frame-width)
@@ -364,7 +362,7 @@
                     0.25))
           ))
 
-  (defun x4/move-posframe ()
+  (defun x4/toggle-posframe-position ()
     (interactive)
     (let* ((info posframe--last-poshandler-info)
            (curr-pos (frame-position posframe--frame))
@@ -1678,6 +1676,16 @@ such alists."
         ))
     )
   )
+
+(global-set-key (kbd "<f12>") #'x4/toggle-vertico-posframe-or-popper)
+(defun x4/toggle-vertico-posframe-or-popper ()
+  "Toggle vertico posframe or popper position depending on whether we are
+in posframe of not."
+  (interactive)
+  (if (and posframe--frame
+           (eql major-mode 'minibuffer-mode))
+      (x4/toggle-posframe-position)
+    (x4/toggle-popper-position)))
 
 
 ;; hilight-indent-guides
