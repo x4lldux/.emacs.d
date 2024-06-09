@@ -30,7 +30,6 @@
 ;; - experiment with ivy-posframe transparency/alpha
 ;;   `(setq ivy-posframe-parameters '((alpha . 85)))`
 ;; - ~~yasnippet for elixir~~ probably works, check!
-;; - toggleing between top and bottom position of an active posframe
 
 ;;; default editor congigs
 (use-package emacs
@@ -339,8 +338,52 @@
 (use-package vertico
   :custom
   (vertico-cycle 't)
-  :custom
-  ((vertico-posframe-parameters '((left-fringe . 8) (right-fringe . 8) (alpha . 90))))
+  (vertico-posframe-parameters '((left-fringe . 8) (right-fringe . 8) (alpha . 90)))
+  (vertico-count 15)
+
+  :bind (("<f12>" . x4/move-posframe))
+
+  :config
+  (defun posframe-poshandler-frame-center-quarter-to-bottom (info)
+    (cons (/ (- (plist-get info :parent-frame-width)
+                (plist-get info :posframe-width))
+             2)
+
+          (round (* (- (plist-get info :parent-frame-height)
+                       (plist-get info :posframe-height))
+                    0.75))
+          ))
+
+  (defun posframe-poshandler-frame-center-quarter-to-top (info)
+    (cons (/ (- (plist-get info :parent-frame-width)
+                (plist-get info :posframe-width))
+             2)
+
+          (round (* (- (plist-get info :parent-frame-height)
+                       (plist-get info :posframe-height))
+                    0.25))
+          ))
+
+  (defun x4/move-posframe ()
+    (interactive)
+    (let* ((info posframe--last-poshandler-info)
+           (curr-pos (frame-position posframe--frame))
+           (near-top-pos (funcall #'posframe-poshandler-frame-center-quarter-to-top info))
+           (near-bottom-pos (funcall #'posframe-poshandler-frame-center-quarter-to-bottom info))
+           (new-pos (if (equal curr-pos near-top-pos)
+                        near-bottom-pos
+                      near-top-pos))
+           )
+      ;; (print (plist-get info :parent-frame-height))
+      ;; (print (plist-get info :posframe-height))
+      ;; (print (- (plist-get info :parent-frame-height) (plist-get info :posframe-height)))
+      ;; (print curr-pos)
+      ;; (print near-top-pos)
+      ;; (print near-bottom-pos)
+      ;; (print new-pos)
+      (set-frame-position posframe--frame (car new-pos) (cdr new-pos))
+      )
+    )
   )
 
 ;; consult & co
