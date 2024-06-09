@@ -1595,6 +1595,88 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 (use-package popper
   :custom
   (popper-group-function #'popper-group-by-project)
+  (popper-display-function #'x4/popper-display-function)
+
+  :config
+  ;; make popper side position controllable: at the bottom or at the right side
+  (defvar x4/popper-display-function #'popper-select-popup-at-bottom
+    "Function to display popper buffer.")
+
+  (defvar x4/popper-window-width #'x4/-popper--fit-window-width
+    "Specify the width of the popup window.
+
+This can be a number representing the width in chars or a
+function that optionally takes one argument (the popup window)
+and returns the height in chars.  This option is ignored when
+`popper-display-control' is set to nil.
+
+Examples:
+
+;; Popup windows are always 20 chars wide
+20
+
+;; The default, scale window width with buffer size up to 33% of
+the frame width.
+ (lambda (win)
+  (fit-window-to-buffer
+    win nil nil
+    (floor (frame-width) 3)))")
+
+  (defun x4/-popper--fit-window-width (win)
+    "Determine the height of popup window WIN by fitting it to the buffer's content."
+    (fit-window-to-buffer
+     win
+     nil
+     nil
+     (floor (frame-width) 2.5)
+     (floor (frame-width) 4)))
+
+  (defun x4/popper-display-function (buffer &optional alist)
+    "Display and switch to popup-buffer BUFFER at the side of the screen."
+    (funcall x4/popper-display-function buffer alist))
+
+  (defun popper-select-popup-at-bottom (buffer &optional alist)
+    "Display and switch to popup-buffer BUFFER at the side of the screen.
+ALIST is an association list of action symbols and values.  See
+Info node `(elisp) Buffer Display Action Alists' for details of
+such alists."
+    (let ((window (popper-display-popup-at-bottom buffer alist)))
+      (select-window window)))
+
+  (defun x4/popper-select-popup-at-right (buffer &optional alist)
+    "Display and switch to popup-buffer BUFFER at the side of the screen.
+ALIST is an association list of action symbols and values.  See
+Info node `(elisp) Buffer Display Action Alists' for details of
+such alists."
+    (let ((window (x4/popper-display-popup-at-right buffer alist)))
+      (select-window window)))
+
+  (defun x4/popper-display-popup-at-right (buffer &optional alist)
+    "Display popup-buffer BUFFER at the bottom of the screen.
+ALIST is an association list of action symbols and values.  See
+Info node `(elisp) Buffer Display Action Alists' for details of
+such alists."
+    (display-buffer-in-side-window
+     buffer
+     (append alist
+             `((window-width . ,x4/popper-window-width)
+               (side . right)
+               (slot . 1)))))
+
+  (defun x4/toggle-popper-position ()
+    (interactive)
+    (if (eq x4/popper-display-function #'x4/popper-select-popup-at-right)
+        (setq x4/popper-display-function #'popper-select-popup-at-bottom)
+      (setq x4/popper-display-function #'x4/popper-select-popup-at-right))
+    (popper--update-popups)
+
+    (dolist (el popper-open-popup-alist)
+      (let ((win (car el))
+            (buf (cdr el)))
+        (popper--delete-popup win)
+        (funcall x4/popper-display-function buf)
+        ))
+    )
   )
 
 
