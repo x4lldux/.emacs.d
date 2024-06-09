@@ -26,7 +26,6 @@
 ;; - move other temp/var files to var directory
 ;; - ~~replace "RET" with "a" in dired (use dired-find-alternate-file as default)~~
 ;;   investigate if solution can be moved from init.el to here
-;; - increase posframe height for ivy/counsel/swipper
 ;; - experiment with ivy-posframe transparency/alpha
 ;;   `(setq ivy-posframe-parameters '((alpha . 85)))`
 ;; - ~~yasnippet for elixir~~ probably works, check!
@@ -430,6 +429,7 @@
 
   :bind (:map corfu-map
          ("M-SPC" . corfu-insert-separator))
+
   :init
   (global-corfu-mode 1)
   (corfu-history-mode 1)
@@ -458,6 +458,7 @@
   (keymap-set corfu-map "M-m" #'x4/-corfu-move-to-minibuffer)
   (add-to-list 'corfu-continue-commands #'x4/-corfu-move-to-minibuffer)
   )
+
 ;; TODO: experiment with cape
 ;; TODO: add company as a backend via cape-company-to-capf
 ;; TODO: add corfu-terminal
@@ -1583,7 +1584,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   (add-to-list 'hl-todo-keyword-faces '("REVIEW" . "#ecb8bb"))
   (add-to-list 'hl-todo-keyword-faces '("RANT" . "#ff6666"))
   (advice-add #'hl-todo-insert :after
-              (defun x4/-insert-space-after (&rest r)
+              (defun x4/-insert-space-after (&rest _r)
                 (delete-horizontal-space)
                 (insert " ")))
   )
@@ -1773,6 +1774,8 @@ return r;
 ;; return r;
 ;; ")
 
+
+;; End
 (print "custom-post LOADED!")
 
 (provide 'custom-post)
