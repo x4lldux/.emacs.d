@@ -785,23 +785,23 @@
 
   (defun x4/display-buffer-new-right-most-window (buffer alist)
     "Returns the right-most window in the frame."
-    (print buffer)
     (let ((last-window (selected-window)))
       (while-let ((other-window (windmove-find-other-window 'right nil last-window)))
         (setq last-window other-window))
       (->
-         buffer
-         (window--display-buffer (split-window-right nil last-window) 'window alist)
-         select-window
+       buffer
+       (window--display-buffer (split-window-right nil last-window) 'window alist)
+       select-window
        )
-      ;; (select-window (window--display-buffer buffer  'window alist))
     ))
 
   (defun x4/-magit-status-buffer-side-window (buffer)
     (let ((major-mode (with-current-buffer buffer major-mode)))
       (cond
        ((eql major-mode #'magit-status-mode)
-        (display-buffer buffer '(x4/display-buffer-new-right-most-window)))
+        (or
+         (get-buffer-window buffer (last-nonminibuffer-frame))
+         (display-buffer buffer '(x4/display-buffer-new-right-most-window))))
 
         ('t
          (funcall #'magit-display-buffer-traditional buffer)))
