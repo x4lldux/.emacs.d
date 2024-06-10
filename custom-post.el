@@ -715,7 +715,8 @@
   (magit-log-arguments  '("--graph" "--color" "--decorate" "-n256"))
   (magit-log-section-arguments '("--graph" "--color" "--decorate" "-n256"))
   (magit-section-initial-visibility-alist '((stashes . hide) (todos . show) (unpushed . show)))
-  (magit-status-margin '(t age magit-log-margin-width nil 18))
+  (magit-log-margin '(t age-abbreviated magit-log-margin-width nil 18))
+  (magit-status-margin '(t age-abbreviated magit-log-margin-width nil 18))
   (magit-display-buffer-function #'x4/-magit-status-buffer-side-window)
 
   :custom-face
